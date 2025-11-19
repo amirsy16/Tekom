@@ -27,7 +27,9 @@
         "VIEW_COMPILED_PATH": "/tmp",
         "CACHE_DRIVER": "array",
         "LOG_CHANNEL": "stderr",
-        "SESSION_DRIVER": "cookie"
+        "SESSION_DRIVER": "cookie",
+        "SESSION_SECURE_COOKIE": "false",
+        "SESSION_SAME_SITE": "lax"
     },
     "outputDirectory": "public"
 }
