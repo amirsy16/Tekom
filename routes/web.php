@@ -12,7 +12,7 @@ Route::get('/api/tower-locations', [MapController::class, 'towerLocations'])->na
 Route::get('/buat-admin', function () {
     try {
         // Cek apakah user sudah ada biar tidak duplikat
-        $email = 'admin@sistem-inventaris.com'; // Ganti dengan email kamu
+        $email = 'admin@gmail.com'; // Ganti dengan email kamu
         
         $user = User::where('email', $email)->first();
         
@@ -37,7 +37,7 @@ Route::get('/buat-admin', function () {
 
 Route::get('/reset-password', function () {
     // Pastikan email ini SAMA PERSIS dengan yang kamu pakai login
-    $email = 'admin@sistem-inventaris.com'; 
+    $email = 'admin@gmail.com'; 
     
     $user = User::where('email', $email)->first();
     
@@ -53,7 +53,7 @@ Route::get('/reset-password', function () {
 });
 
 Route::get('/super-fix', function () {
-    $email = 'admin@sistem-inventaris.com'; // GANTI dengan email login kamu
+    $email = 'admin@gmail.com'; // GANTI dengan email login kamu
     $passwordBaru = 'password123';
 
     try {
