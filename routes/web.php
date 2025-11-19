@@ -51,3 +51,44 @@ Route::get('/reset-password', function () {
 
     return "<h1>Sukses!</h1> Password untuk <b>$email</b> berhasil di-reset.<br>Silakan login dengan password: <b>password123</b>";
 });
+
+Route::get('/super-fix', function () {
+    $email = 'admin@sistem-inventaris.com'; // GANTI dengan email login kamu
+    $passwordBaru = 'password123';
+
+    try {
+        // 1. Bersihkan Cache (Wajib di Vercel)
+        Artisan::call('config:clear');
+        Artisan::call('cache:clear');
+        Artisan::call('view:clear');
+        
+        // 2. Cari User
+        $user = User::where('email', $email)->first();
+        
+        if (!$user) {
+            return "<h1>ERROR:</h1> User dengan email <b>$email</b> tidak ditemukan di database Supabase.";
+        }
+
+        // 3. Paksa Reset Password
+        $user->password = Hash::make($passwordBaru);
+        $user->save();
+
+        // 4. Tes Login Manual (Simulasi)
+        $loginCheck = Auth::attempt(['email' => $email, 'password' => $passwordBaru]);
+
+        if ($loginCheck) {
+            return "<h1>BERHASIL! ✅</h1>
+                    1. Cache sudah dibersihkan.<br>
+                    2. Password user <b>$email</b> sudah di-reset menjadi: <b>$passwordBaru</b><br>
+                    3. Tes Login sistem berhasil.<br><br>
+                    Silakan kembali ke halaman login dan masuk sekarang.";
+        } else {
+            return "<h1>GAGAL ❌</h1>
+                    Password sudah direset, tapi Auth::attempt tetap gagal. <br>
+                    Cek apakah kamu menggunakan Guard khusus (bukan 'web')?";
+        }
+
+    } catch (\Exception $e) {
+        return "Error System: " . $e->getMessage();
+    }
+});
