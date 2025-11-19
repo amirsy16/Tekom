@@ -34,3 +34,20 @@ Route::get('/buat-admin', function () {
         return "Gagal membuat user: " . $e->getMessage();
     }
 });
+
+Route::get('/reset-password', function () {
+    // Pastikan email ini SAMA PERSIS dengan yang kamu pakai login
+    $email = 'admin@sistem-inventaris.com'; 
+    
+    $user = User::where('email', $email)->first();
+    
+    if (!$user) {
+        return "User tidak ditemukan! Cek apakah emailnya benar?";
+    }
+
+    // Paksa ubah password
+    $user->password = Hash::make('password123');
+    $user->save();
+
+    return "<h1>Sukses!</h1> Password untuk <b>$email</b> berhasil di-reset.<br>Silakan login dengan password: <b>password123</b>";
+});
