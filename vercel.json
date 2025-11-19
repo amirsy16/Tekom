@@ -7,20 +7,12 @@
     },
     "routes": [
         {
-            "src": "/css/(.*)",
-            "dest": "/public/css/$1"
+            "src": "/(css|js|fonts|storage)/(.*)",
+            "dest": "/public/$1/$2"
         },
         {
-            "src": "/js/(.*)",
-            "dest": "/public/js/$1"
-        },
-        {
-            "src": "/fonts/(.*)",
-            "dest": "/public/fonts/$1"
-        },
-        {
-            "src": "/storage/(.*)",
-            "dest": "/public/storage/$1"
+            "src": "/(.*\\.(ico|png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot))",
+            "dest": "/public/$1"
         },
         {
             "src": "/(.*)",
