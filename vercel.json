@@ -1,9 +1,8 @@
 {
     "version": 2,
+    "framework": null,
     "functions": {
-        "api/index.php": {
-            "runtime": "vercel-php@0.7.1"
-        }
+        "public/index.php": { "runtime": "vercel-php@0.7.1" }
     },
     "routes": [
         {
@@ -11,22 +10,22 @@
             "dest": "/public/build/$1"
         },
         {
-            "src": "/(css|js|fonts|storage)/(.*)",
-            "dest": "/public/$1/$2"
+            "src": "/storage/(.*)",
+            "dest": "/public/storage/$1"
         },
         {
-            "src": "/(.*\\.(ico|png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot))",
+            "src": "/(favicon.ico|robots.txt)",
             "dest": "/public/$1"
         },
         {
             "src": "/(.*)",
-            "dest": "/api/index.php"
+            "dest": "/public/index.php"
         }
     ],
     "env": {
         "APP_ENV": "production",
         "APP_DEBUG": "true",
-        "APP_URL": "https://tekom.vercel.app/",
+        "APP_URL": "https://tekom.vercel.app",
         "APP_CONFIG_CACHE": "/tmp/config.php",
         "APP_EVENTS_CACHE": "/tmp/events.php",
         "APP_PACKAGES_CACHE": "/tmp/packages.php",
@@ -35,9 +34,6 @@
         "VIEW_COMPILED_PATH": "/tmp",
         "CACHE_DRIVER": "array",
         "LOG_CHANNEL": "stderr",
-        "SESSION_DRIVER": "cookie",
-        "SESSION_SECURE_COOKIE": "false",
-        "SESSION_SAME_SITE": "lax"
-    },
-    "outputDirectory": "public"
+        "SESSION_DRIVER": "cookie"
+    }
 }
