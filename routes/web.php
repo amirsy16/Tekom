@@ -92,3 +92,22 @@ Route::get('/api/tower-locations', [MapController::class, 'towerLocations'])->na
 //         return "Error System: " . $e->getMessage();
 //     }
 // });
+
+Route::get('/test-login', function () {
+    $email = 'admin@polda-jambi.go.id'; // Ganti dengan email yang Anda tes
+    $passwordInput = 'password';        // Ganti dengan password yang Anda tes
+
+    // 1. Cek apakah User ditemukan
+    $user = User::where('email', $email)->first();
+
+    if (!$user) {
+        return "User dengan email '$email' TIDAK DITEMUKAN. Cek koneksi database atau ejaan email.";
+    }
+
+    // 2. Cek apakah Password cocok
+    if (Hash::check($passwordInput, $user->password)) {
+        return "SUKSES: Password Cocok! Masalahnya mungkin ada di Session atau Config Auth.";
+    } else {
+        return "GAGAL: User ditemukan, tapi Password TIDAK COCOK. <br>Hash di DB: " . $user->password . "<br>Hash dari Input: " . Hash::make($passwordInput);
+    }
+});
